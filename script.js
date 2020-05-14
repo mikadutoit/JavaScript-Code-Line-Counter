@@ -1,30 +1,30 @@
 // Variables
 
-var javaSourceFile = "https://raw.githubusercontent.com/mikadutoit/JavaScript-Code-Line-Counter/master/Input/Test1.js"; /*URL for Java Source File to be Checked.*/
-var textData;
+var javaSourceFile = "https://raw.githubusercontent.com/mikadutoit/JavaScript-Code-Line-Counter/master/Input/Test2.js"; /*URL for Java Source File to be checked.*/
+var textData; /* Variable to store the Source File's Text Data.*/
 
-var n = 0; /*Number of Lines of Code*/
-var blockCommentCounter = 0; /*Number of Block Comments*/
-var lineCommentCounter = 0; /*Number of Line Comments*/
+var n = 0; /*Number of lines of code.*/
+var blockCommentCounter = 0; /*Number of block comments.*/
+var lineCommentCounter = 0; /*Number of line comments.*/
 
-var insideLineOfCode = false; /*Tracks whether or not character check is still within a Line of Code*/
-var insideLineComment = false; /*Tracks whether or not character check is still within a Block Comment*/
-var insideBlockComment = false; /*Tracks whether or not character check is still within a Block Comment*/
-var insideQuotation = false; /*Tracks whether or not character check is still within a Quotation*/
+var insideLineOfCode = false; /*Tracks whether or not character check is still within a Line of Code.*/
+var insideLineComment = false; /*Tracks whether or not character check is still within a Line Comment.*/
+var insideBlockComment = false; /*Tracks whether or not character check is still within a Block Comment.*/
+var insideQuotation = false; /*Tracks whether or not character check is still within a Quotation.*/
 
-var currentCharacter; /*Stores Latest Character for Checking*/
-var previousCharacter; /*Stores Previous Character for Comment Command Check*/
-var whitespace = new RegExp("\\s");
+var currentCharacter; /*Stores latest character for checking.*/
+var previousCharacter; /*Stores previous character for comment sequence check.*/
+var whitespace = new RegExp("\\s"); /* Variable to store the result of the function that checks the currentCharacter against all regular whitespace expressions.*/
 
 //Calling Functions
 
-this.onload = FetchJavaSourceFile();
+this.onload = FetchJavaSourceFile(); /*Starts the sequence of functions that will count the number of lines of code in the fetched java source file.*/
 
 // Functions
 
-async function FetchJavaSourceFile()
+async function FetchJavaSourceFile() /*Fetches the java source file from the URL given, then pulls the date from that file and stores it as text in the textData variable*/
 {
-	await fetch(javaSourceFile)
+	await fetch(javaSourceFile) /*The script will wait until the fetched file is loaded fully before pulling the data and calling the CodeLineCheck function.*/
 		.then(function(response)
 		{
 			return response.text();
@@ -32,15 +32,15 @@ async function FetchJavaSourceFile()
 		.then(function(data)
 		{
 			textData = data;
-			console.log(textData);
-			console.log(textData.length);
+			//console.log(textData);
+			//console.log(textData.length);
 		})
 
 	CodeLineCheck();
 
 }
 
-function CodeLineCheck()
+function CodeLineCheck() /*This function checks every character in the textData, looking for patterns and cues that indicate the presence of a Line of Code, a Comment or a Quotation. Ignoring Whitespaces.*/
 {
 	for (var i = 0; i < textData.length; i++)
 	{
@@ -48,7 +48,7 @@ function CodeLineCheck()
 
 		if (currentCharacter != "\n")
 		{
-			console.log(currentCharacter);
+			//console.log(currentCharacter);
 
 			if (insideLineComment == false && insideBlockComment == false && insideQuotation == false)
 			{
@@ -59,22 +59,22 @@ function CodeLineCheck()
 				else if (currentCharacter == "\"" || currentCharacter == "\'")
 				{
 					insideQuotation = true
-					console.log("Quotation Opened");
+					//console.log("Quotation Opened");
 				}
 				else if (currentCharacter == "/" && previousCharacter == "/")
 				{
 					insideLineComment = true;
-					console.log("Line Comment Open");
+					//console.log("Line Comment Open");
 				}
 				else if (currentCharacter == "*" && previousCharacter == "/")
 				{
 					insideBlockComment = true;
-					console.log("Block Comment Open");
+					//console.log("Block Comment Open");
 				}
 				else if (currentCharacter != "/" && insideBlockComment == false && insideLineOfCode == false)
 				{
 					insideLineOfCode = true;
-					console.log("Line of Code Started");
+					//console.log("Line of Code Started");
 					n = n + 1;
 				}
 			}
@@ -83,7 +83,7 @@ function CodeLineCheck()
 				if (currentCharacter == "/" && previousCharacter == "*")
 				{
 					blockCommentCounter = blockCommentCounter + 1;
-					console.log("Block Comment Closed");
+					//console.log("Block Comment Closed");
 					insideBlockComment = false;
 					currentCharacter = null;
 				}
@@ -92,7 +92,7 @@ function CodeLineCheck()
 			{
 				if (currentCharacter == "\"" || currentCharacter == "\'")
 				{
-					console.log("Quotation Closed")
+					//console.log("Quotation Closed")
 					insideQuotation = false;
 				}
 			}
@@ -104,12 +104,12 @@ function CodeLineCheck()
 			if (insideLineComment == true)
 			{
 				lineCommentCounter = lineCommentCounter + 1;
-				console.log("Line Comment Closed");
+				//console.log("Line Comment Closed");
 				insideLineComment = false;
 			}
 			if (insideLineOfCode == true)
 			{
-				console.log("Line of Code Finished")
+				//console.log("Line of Code Finished")
 				insideLineOfCode = false;
 			}
 		}
@@ -118,7 +118,7 @@ function CodeLineCheck()
 
 	}
 
-	Output();
+	Output(); /*The Output function is called which simply writes the output 'n' to the browser when the index.html file is loaded.*/
 
 }
 
