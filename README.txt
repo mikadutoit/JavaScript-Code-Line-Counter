@@ -1,0 +1,1 @@
+Please launch the "index.html" file in your browser to subsequently launch the "script.js", and see the output.
