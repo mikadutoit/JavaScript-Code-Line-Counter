@@ -1,6 +1,6 @@
 // Variables
 
-var javaSourceFile = "https://raw.githubusercontent.com/mikadutoit/JavaScript-Code-Line-Counter/master/Input/Test1.js"; /*URL for Java Source File to be checked.*/
+var javaSourceFile = "https://raw.githubusercontent.com/mikadutoit/JavaScript-Code-Line-Counter/master/Input/Test1.java"; /*URL for Java Source File to be checked.*/
 var textData; /* Variable to store the Source File's Text Data.*/
 
 var n = 0; /*Number of lines of code.*/
