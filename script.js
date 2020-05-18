@@ -65,11 +65,13 @@ function CodeLineCheck() /*This function checks every character in the textData,
 				{
 					insideLineComment = true;
 					//console.log("Line Comment Open");
+					lineCommentCounter = lineCommentCounter + 1;
 				}
 				else if (currentCharacter == "*" && previousCharacter == "/")
 				{
 					insideBlockComment = true;
 					//console.log("Block Comment Open");
+					blockCommentCounter = blockCommentCounter + 1;
 				}
 				else if (currentCharacter != "/" && insideBlockComment == false && insideLineOfCode == false)
 				{
@@ -82,7 +84,6 @@ function CodeLineCheck() /*This function checks every character in the textData,
 			{
 				if (currentCharacter == "/" && previousCharacter == "*")
 				{
-					blockCommentCounter = blockCommentCounter + 1;
 					//console.log("Block Comment Closed");
 					insideBlockComment = false;
 					currentCharacter = null;
@@ -103,7 +104,6 @@ function CodeLineCheck() /*This function checks every character in the textData,
 
 			if (insideLineComment == true)
 			{
-				lineCommentCounter = lineCommentCounter + 1;
 				//console.log("Line Comment Closed");
 				insideLineComment = false;
 			}
